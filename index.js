@@ -1,6 +1,16 @@
+const abbreviateNote = (note) => {
+  return `${note.title}:  ${note.content}`.substr(0, 21) + '...';
+}
+
 const showAllNotes = (notes) => {
-  console.log(notes)
-  // document.createElement
+  notes.forEach((note) => {
+    const divList = document.getElementById('notes-list'),
+          noteElement = document.createElement('a');
+
+    noteElement.href = '';
+    noteElement.textContent = abbreviateNote(note);
+    divList.appendChild(noteElement);
+  })
 };
 
 const fetchAllNotes = (callback) => {
