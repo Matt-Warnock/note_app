@@ -19,4 +19,26 @@ const fetchAllNotes = (callback) => {
   .then(notes => callback(notes)))
 };
 
+const newNoteTitle = document.querySelector('#new-note-title')
+const newNoteContent = document.querySelector('#new-note-content')
+const newNoteButton = document.querySelector('#new-note-button')
+
+const createNote = (title, content) => {
+  let noteObject = {
+    title: title,
+    content: content
+  }
+  fetch('http://localhost:3000/notes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(noteObject)
+  })
+};
+
+newNoteButton.addEventListener('click', () => {
+  createNote(newNoteTitle.value, newNoteContent.value);
+});
+
 fetchAllNotes((notes) => showAllNotes(notes))

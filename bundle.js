@@ -14,5 +14,24 @@
   var fetchAllNotes = (callback) => {
     fetch("http://localhost:3000/notes").then((response) => response.json().then((notes) => callback(notes)));
   };
+  var newNoteTitle = document.querySelector("#new-note-title");
+  var newNoteContent = document.querySelector("#new-note-content");
+  var newNoteButton = document.querySelector("#new-note-button");
+  var createNote = (title, content) => {
+    let noteObject = {
+      title,
+      content
+    };
+    fetch("http://localhost:3000/notes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(noteObject)
+    });
+  };
+  newNoteButton.addEventListener("click", () => {
+    createNote(newNoteTitle.value, newNoteContent.value);
+  });
   fetchAllNotes((notes) => showAllNotes(notes));
 })();
